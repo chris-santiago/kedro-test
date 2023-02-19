@@ -1,0 +1,152 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.kedro]
+package_name = "kedro_test"
+project_name = "Kedro Test"
+project_version = "0.18.4"
+
+
+[project]
+name = "kedro_test"
+version = "0.1.0"
+description = "Python Boilerplate contains all the boilerplate you need to create a Python package."
+readme = "README.md"
+license = { text ="MIT License" }
+requires-python = ">=3.9"
+authors = [
+    { name="Chris Santiago", email="cjsantiago@gatech.edu"}
+]
+
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+    "tomli",
+    "docutils",
+    "nbsphinx",
+    "nbstripout",
+    "sphinx-autodoc-typehints",
+    "sphinx_copybutton",
+    "ipykernel",
+    "Jinja2",
+    "myst-parser",
+]
+
+tests = [
+    "coverage",
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "toml",
+    "pre-commit-hooks"
+]
+
+qa = [
+    "pre-commit",
+    "black",
+    "flake8",
+    "flake8-docstrings",
+    "mypy",
+    "nox",
+    "check-manifest",
+    "isort",
+    "pylint",
+    "check-manifest"
+]
+
+build = [
+    "twine",
+    "wheel",
+]
+
+dev = [
+    "kedro_test[docs]",
+    "kedro_test[tests]",
+    "kedro_test[qa]",
+    "kedro_test[build]",
+]
+
+[project.scripts]
+kedro-test = "kedro_test.__main__:main"
+
+[project.urls]
+"Sourcecode" = "https://github.com/chris-santiago/kedro_test"
+"Documentation" = "https://chris-santiago.github.io/kedro_test/"
+
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["src/tests/*"]
+
+
+[tool.check-manifest]
+ignore = [
+    "docs",
+    "docs/**",
+    "notebooks",
+    "notebooks/**",
+    ".pre-commit-config.yaml",
+    ".gitignore",
+    ".pylintrc",
+    "Makefile",
+    "noxfile.py",
+    "init.sh",
+]
+
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+line_length = 100
+
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+
+[tool.pylint.master]
+fail-under = 9.0
+ignore-patterns = "test"
+disable = [
+    # Disable these for scikit-learn style code
+    "invalid-name",
+    "attribute-defined-outside-init",
+]
+
+
+[tool.pylint.format]
+max-line-length = 100
+max-module-lines = 1000
+
+
+[tool.pylint.similarities]
+min-similarity-lines = 4
+ignore-comments = "yes"
+ignore-docstrings = "yes"
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests/"]
+addopts = "--cov=src/kedro_test --cov-report=html --verbose"
+
+[tool.coverage.report]
+fail_under = 0
+show_missing = true
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]

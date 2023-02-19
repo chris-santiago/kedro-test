@@ -1,0 +1,13 @@
+# These are base requirements for Kedro
+ipython>=7.31.1, <8.0; python_version < '3.8'
+ipython~=8.10; python_version >= '3.8'
+jupyter~=1.0
+jupyterlab_server>=2.11.1, <2.16.0
+jupyterlab~=3.0, <3.6.0
+kedro~=0.18.4
+kedro-telemetry~=0.2.0
+
+# These are project/package specific requirements
+kedro[pandas.CSVDataSet, pandas.ExcelDataSet, pandas.ParquetDataSet]==0.18.4
+kedro-viz
+scikit-learn
